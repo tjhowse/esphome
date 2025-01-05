@@ -99,7 +99,7 @@ void MAX31855Sensor::read_data_() {
     val |= 0xC000;  // Pad out 2's complement
   }
   const float t_sense = float(val) * 0.25f;
-  ESP_LOGD(TAG, "Got thermocouple temperature: %.2f°C", t_sense);
+  ESP_LOGD(TAG, "Got thermocouple temperature: %.2f°C ---", t_sense);
   this->publish_state(t_sense);
   this->status_clear_warning();
 }
