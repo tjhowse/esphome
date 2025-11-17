@@ -42,6 +42,11 @@ class UARTDebugger : public Component, public Trigger<UARTDirection, std::vector
   /// logging will be triggered.
   void add_delimiter_byte(uint8_t byte) { this->after_delimiter_.push_back(byte); }
 
+  /// Inserts a byte into the receive data buffer.
+  /// Can be used to simulate incoming data for testing purposes or to implement
+  /// a UART bridge or proxy.
+  void insert_byte(uint8_t byte) { this->bytes_.store_byte_(UARTDirection::INCOMING, byte); }
+
  protected:
   UARTDirection for_direction_;
   UARTDirection last_direction_{};
