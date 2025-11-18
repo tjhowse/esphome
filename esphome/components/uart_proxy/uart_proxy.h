@@ -23,6 +23,7 @@ class UartProxyComponent : public uart::UARTComponent, public Component {
  protected:
   std::queue<uint8_t> bytes_{};
   size_t max_buffer_size_{1024};
+  void check_logger_conflict() override {}
 };
 
 }  // namespace uart
