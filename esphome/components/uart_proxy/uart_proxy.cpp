@@ -21,12 +21,9 @@ namespace uart_proxy {
 
 static const char *const TAG = "uart.proxy";
 
-UartProxyComponent::~UartProxyComponent() {
-    this->bytes_.clear();
-}
-
 void UartProxyComponent::setup() {
   ESP_LOGCONFIG(TAG, "Creating Proxy UART component");
+
 }
 
 void UartProxyComponent::write_array(const uint8_t *data, size_t len) {
@@ -54,11 +51,6 @@ bool UartProxyComponent::read_array(uint8_t *data, size_t len) {
         data[i] = this->bytes_.front();
         this->bytes_.pop();
     }
-#ifdef USE_UART_DEBUGGER
-    for (size_t i = 0; i < to_read; i++) {
-        this->debug_callback_.call(UART_DIRECTION_RX, data[i]);
-    }
-#endif
   return true;
 }
 
