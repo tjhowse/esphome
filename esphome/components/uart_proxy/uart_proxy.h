@@ -2,14 +2,14 @@
 
 #include "esphome/core/component.h"
 #include "esphome/core/log.h"
-#include "../uart/uart_component.h"
+#include "esphome/components/uart/uart_component.h"
 
 #include <queue>
 
 namespace esphome {
 namespace uart_proxy {
 
-class UartProxyComponent : public UARTComponent, public Component {
+class UartProxyComponent : public uart::UARTComponent, public Component {
  public:
   virtual ~UartProxyComponent();
   void write_array(const uint8_t *data, size_t len) override;
