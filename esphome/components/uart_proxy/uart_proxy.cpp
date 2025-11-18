@@ -1,4 +1,4 @@
-#include "uart_component_proxy.h"
+#include "uart_proxy.h"
 #include "esphome/core/application.h"
 #include "esphome/core/defines.h"
 #include "esphome/core/helpers.h"
@@ -17,19 +17,19 @@
 #endif
 
 namespace esphome {
-namespace uart {
+namespace uart_proxy {
 
 static const char *const TAG = "uart.proxy";
 
-ProxyUartComponent::~ProxyUartComponent() {
+UartProxyComponent::~UartProxyComponent() {
     this->bytes_.clear();
 }
 
-void ProxyUartComponent::setup() {
+void UartProxyComponent::setup() {
   ESP_LOGCONFIG(TAG, "Creating Proxy UART component");
 }
 
-void ProxyUartComponent::write_array(const uint8_t *data, size_t len) {
+void UartProxyComponent::write_array(const uint8_t *data, size_t len) {
     size_t space_left = this->max_buffer_size_ - this->bytes_.size();
     size_t to_write = std::min(len, space_left);
     for (size_t i = 0; i < to_write; i++) {
@@ -37,7 +37,7 @@ void ProxyUartComponent::write_array(const uint8_t *data, size_t len) {
     }
 }
 
-bool ProxyUartComponent::peek_byte(uint8_t *data) {
+bool UartProxyComponent::peek_byte(uint8_t *data) {
     if (this->bytes_.empty()) {
         return false;
     }
@@ -45,7 +45,7 @@ bool ProxyUartComponent::peek_byte(uint8_t *data) {
     return true;
 }
 
-bool ProxyUartComponent::read_array(uint8_t *data, size_t len) {
+bool UartProxyComponent::read_array(uint8_t *data, size_t len) {
     if (this->bytes_.empty()) {
         return false;
     }

@@ -2,16 +2,16 @@
 
 #include "esphome/core/component.h"
 #include "esphome/core/log.h"
-#include "uart_component.h"
+#include "../uart/uart_component.h"
 
 #include <queue>
 
 namespace esphome {
 namespace uart {
 
-class ProxyUartComponent : public UARTComponent, public Component {
+class UartProxyComponent : public UARTComponent, public Component {
  public:
-  virtual ~ProxyUartComponent();
+  virtual ~UartProxyComponent();
   void write_array(const uint8_t *data, size_t len) override;
   bool peek_byte(uint8_t *data) override;
   bool read_array(uint8_t *data, size_t len) override;
