@@ -7,7 +7,7 @@
 #include <queue>
 
 namespace esphome {
-namespace uart {
+namespace uart_proxy {
 
 class UartProxyComponent : public UARTComponent, public Component {
  public:

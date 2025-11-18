@@ -5,38 +5,19 @@ import esphome.codegen as cg
 from esphome.config_helpers import filter_source_files_from_platform
 import esphome.config_validation as cv
 from esphome.const import (
-    CONF_AFTER,
-    CONF_BAUD_RATE,
-    CONF_BYTES,
-    CONF_DATA,
-    CONF_DEBUG,
-    CONF_DELIMITER,
-    CONF_DIRECTION,
-    CONF_DUMMY_RECEIVER,
-    CONF_DUMMY_RECEIVER_ID,
-    CONF_FLOW_CONTROL_PIN,
     CONF_ID,
-    CONF_INVERT,
-    CONF_LAMBDA,
-    CONF_NUMBER,
-    CONF_PORT,
     CONF_RX_BUFFER_SIZE,
-    CONF_RX_PIN,
-    CONF_SEQUENCE,
-    CONF_TIMEOUT,
-    CONF_TRIGGER_ID,
-    CONF_TX_PIN,
-    CONF_UART_ID,
-    PLATFORM_HOST,
-    PlatformFramework,
 )
 from esphome.core import CORE, ID
 import esphome.final_validate as fv
 from esphome.yaml_util import make_data_base
+from esphome.components.uart import UARTComponent
 
 _LOGGER = getLogger(__name__)
 
-CODEOWNERS = ["@esphome/core"]
+CODEOWNERS = ["@tjhowse"]
+uart_proxy_ns = cg.esphome_ns.namespace("uart_proxy")
+UartProxyComponent = uart_proxy_ns.class_("UartProxyComponent", UARTComponent, cg.Component)
 
 def validate_rx_buffer_size(config):
     if CORE.is_esp32:
@@ -55,7 +36,7 @@ def validate_rx_buffer_size(config):
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
-            cv.Required(CONF_ID): cv.declare_id("UartProxyComponent"),
+            cv.Required(CONF_ID): cv.declare_id(UartProxyComponent),
             cv.Optional(CONF_RX_BUFFER_SIZE, default=256): cv.validate_bytes,
         }
     ).extend(cv.COMPONENT_SCHEMA),
@@ -65,9 +46,6 @@ CONFIG_SCHEMA = cv.All(
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-
-    cg.add(var.set_baud_rate(config[CONF_BAUD_RATE]))
-
     cg.add(var.set_rx_buffer_size(config[CONF_RX_BUFFER_SIZE]))
 
 
