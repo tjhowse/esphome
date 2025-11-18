@@ -55,6 +55,7 @@ def validate_rx_buffer_size(config):
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
+            cv.Required(CONF_ID): cv.declare_id("UartProxyComponent"),
             cv.Optional(CONF_RX_BUFFER_SIZE, default=256): cv.validate_bytes,
         }
     ).extend(cv.COMPONENT_SCHEMA),
