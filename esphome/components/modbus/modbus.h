@@ -40,11 +40,7 @@ class Modbus : public uart::UARTDevice, public Component {
   void set_send_wait_time(uint16_t time_in_ms) { send_wait_time_ = time_in_ms; }
   void set_disable_crc(bool disable_crc) { disable_crc_ = disable_crc; }
 
-  void inject_modbus_byte(uint8_t byte) {
-    if (this->parse_modbus_byte_(byte)) {
-      this->last_modbus_byte_ = App.get_loop_component_start_time();
-    }
-  }
+  void inject_modbus_byte(uint8_t byte);
 
   ModbusRole role;
 

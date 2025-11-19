@@ -47,6 +47,12 @@ void Modbus::loop() {
   }
 }
 
+void Modbus::inject_modbus_byte(uint8_t byte) {
+    if (this->parse_modbus_byte_(byte)) {
+      this->last_modbus_byte_ = App.get_loop_component_start_time();
+    }
+  }
+
 bool Modbus::parse_modbus_byte_(uint8_t byte) {
   size_t at = this->rx_buffer_.size();
   this->rx_buffer_.push_back(byte);
