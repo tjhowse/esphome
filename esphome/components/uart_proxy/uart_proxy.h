@@ -11,8 +11,8 @@ namespace uart_proxy {
 
 class UartProxyComponent : public uart::UARTComponent, public Component {
  public:
-  // Provide an inline defaulted destructor to ensure the vtable is emitted.
-  ~UartProxyComponent() override = default;
+  // Defaulted destructor (not overriding a virtual base destructor)
+  virtual ~UartProxyComponent() = default;
   void setup() override;
   void write_array(const uint8_t *data, size_t len) override;
   bool peek_byte(uint8_t *data) override;
