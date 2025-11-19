@@ -13,7 +13,8 @@ _LOGGER = getLogger(__name__)
 
 CODEOWNERS = ["@tjhowse"]
 uart_proxy_ns = cg.esphome_ns.namespace("uart_proxy")
-UartProxyComponent = uart_proxy_ns.class_("UartProxyComponent", UARTComponent, cg.Component)
+# UartProxyComponent = uart_proxy_ns.class_("UartProxyComponent", UARTComponent, cg.Component)
+UartProxyComponent = uart_proxy_ns.class_("UartComponent", UARTComponent, cg.Component)
 
 
 CONFIG_SCHEMA = cv.All(
@@ -24,7 +25,6 @@ CONFIG_SCHEMA = cv.All(
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
-    .extend(uart.UART_DEVICE_SCHEMA)
 
 )
 
