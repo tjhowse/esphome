@@ -10,7 +10,7 @@ from esphome.const import CONF_ADDRESS, CONF_DISABLE_CRC, CONF_FLOW_CONTROL_PIN,
 from esphome.cpp_helpers import gpio_pin_expression
 import esphome.final_validate as fv
 
-DEPENDENCIES = ["uart"]
+DEPENDENCIES = ["uart_proxy"]
 
 modbus_ns = cg.esphome_ns.namespace("modbus")
 Modbus = modbus_ns.class_("Modbus", cg.Component, uart.UARTDevice)
