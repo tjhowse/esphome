@@ -1,8 +1,8 @@
 from logging import getLogger
 
 import esphome.codegen as cg
-from esphome.config_helpers import filter_source_files_from_platform
 import esphome.config_validation as cv
+from esphome.components import uart
 from esphome.const import (
     CONF_ID,
     CONF_RX_BUFFER_SIZE,
@@ -22,7 +22,10 @@ CONFIG_SCHEMA = cv.All(
             cv.Required(CONF_ID): cv.declare_id(UartProxyComponent),
             cv.Optional(CONF_RX_BUFFER_SIZE, default=1024): cv.validate_bytes,
         }
-    ).extend(cv.COMPONENT_SCHEMA),
+    )
+    .extend(cv.COMPONENT_SCHEMA)
+    .extend(uart.UART_DEVICE_SCHEMA)
+
 )
 
 async def to_code(config):
