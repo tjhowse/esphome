@@ -27,6 +27,7 @@ void UartProxyComponent::setup() {
 }
 
 void UartProxyComponent::write_array(const uint8_t *data, size_t len) {
+    ESP_LOGD(TAG, "write_array called with len=%d", len);
     size_t space_left = this->max_buffer_size_ - this->bytes_.size();
     size_t to_write = std::min(len, space_left);
     for (size_t i = 0; i < to_write; i++) {
@@ -43,6 +44,7 @@ bool UartProxyComponent::peek_byte(uint8_t *data) {
 }
 
 bool UartProxyComponent::read_array(uint8_t *data, size_t len) {
+    ESP_LOGD(TAG, "read_array called with len=%d", len);
     if (this->bytes_.empty()) {
         return false;
     }
