@@ -36,6 +36,7 @@ void UartProxyComponent::write_array(const uint8_t *data, size_t len) {
 }
 
 bool UartProxyComponent::peek_byte(uint8_t *data) {
+    ESP_LOGD(TAG, "peek_byte called");
     if (this->bytes_.empty()) {
         return false;
     }
